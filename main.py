@@ -6,7 +6,7 @@ from PyQt5.QtCore import QSize
 class ImageButtonApp(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle('Кнопка-зображення')
+        self.setWindowTitle('Clicker Kruglow')
         self.setGeometry(100, 100, 300, 200)
 
         layout = QVBoxLayout()
