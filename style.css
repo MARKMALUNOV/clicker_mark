@@ -12,5 +12,5 @@ QPushButton{
     border: 1px dashed whitesmoke;
 }
 QPushButton:hover{
-    background-color: rgb(255, 0, 0);
+    background-color: rgb(255,255,255);
 }
