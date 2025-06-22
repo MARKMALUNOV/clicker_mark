@@ -13,6 +13,7 @@ class ImageButtonApp(QWidget):
         self.upgrades = 0
         self.upgrades_free = 10
         self.Clicks = 0
+        self.sound_state = 1
         self.clicks_plus = 1
         self.price = 10
         self.off_sound = 0
@@ -110,18 +111,15 @@ class ImageButtonApp(QWidget):
         def off_sound():
             self.sound.set_volume(0.0)
             self.sound1.set_volume(0.0)
+            self.sound_state = 0
 
         def on_sound():
             self.sound.set_volume(1)
             self.sound1.set_volume(1)
+            self.sound_state = 1
 
-        Settings(off_sound,on_sound,self.change_sound).exec_()
+        Settings(off_sound, on_sound, self.sound_state).exec_()
 
-    def change_sound(self,state):
-        if state == 0 :
-            state += 1
-        else:
-            state -= 1
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
