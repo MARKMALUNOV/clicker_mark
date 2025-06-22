@@ -15,6 +15,8 @@ class ImageButtonApp(QWidget):
         self.Clicks = 0
         self.clicks_plus = 1
         self.price = 10
+        self.off_sound = 0
+        self.on_sound = 100
         self.setWindowTitle('Клікер Круглов')
         self.setFixedSize(500, 650)
         pygame.init()
@@ -29,7 +31,8 @@ class ImageButtonApp(QWidget):
         layout = QVBoxLayout()
 
         self.Click_Label = QLabel("Кліків: 0")
-
+        self.sound1 = pygame.mixer.Sound('sounds/click_button_sound.wav')
+        self.sound = pygame.mixer.Sound('sounds/click_sound.wav')
         self.button = QPushButton()
         self.button.setIcon(QIcon('images/Click_Button.png'))
         self.button.setIconSize(QSize(400, 500))
@@ -56,8 +59,7 @@ class ImageButtonApp(QWidget):
 
     def on_click(self):
         self.Clicks += self.clicks_plus
-        sound = pygame.mixer.Sound('sounds/click_sound.wav')
-        sound.play()
+        self.sound.play()
         self.Click_Label.setText(f"Кліків :{self.Clicks}")
 
     def on_purshare(self):
@@ -96,24 +98,30 @@ class ImageButtonApp(QWidget):
             QMessageBox.warning(self,"Помилка","Ця функція заблокована (Нафармте 30 кліків)")
 
     def start(self):
-        sound1 = pygame.mixer.Sound('sounds/click_button_sound.wav')
-        sound1.play()
+
+        self.sound1.play()
         self.on_purshare()
 
     def start_1(self):
-        sound1 = pygame.mixer.Sound('sounds/click_button_sound.wav')
-        sound1.play()
+        self.sound1.play()
         self.on_inversion()
 
     def on_settings(self):
         def off_sound():
-            pygame.mixer.Sound.set_volume()
+            self.sound.set_volume(0.0)
+            self.sound1.set_volume(0.0)
 
         def on_sound():
-            pygame.mixer.Sound.set_volume()
+            self.sound.set_volume(1)
+            self.sound1.set_volume(1)
 
-        Settings(off_sound,on_sound).exec_()
+        Settings(off_sound,on_sound,self.change_sound).exec_()
 
+    def change_sound(self,state):
+        if state == 0 :
+            state += 1
+        else:
+            state -= 1
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
